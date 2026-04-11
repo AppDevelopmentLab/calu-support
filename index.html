@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calu+ サポート</title>
+  <title>Calu+ Support</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 680px; margin: 0 auto; padding: 32px 24px; color: #1c1c1e; background: #fff; }
     h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
-    .meta { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+    .meta { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
     .badge { background: #f2f2f7; border-radius: 8px; padding: 4px 12px; font-size: 13px; color: #3a3a3c; }
+    .lang-switch { margin-left: auto; display: flex; gap: 6px; }
+    .lang-btn { background: none; border: 1px solid #c7c7cc; border-radius: 6px; padding: 3px 10px; font-size: 13px; cursor: pointer; color: #3a3a3c; }
+    .lang-btn.active { background: #007aff; color: #fff; border-color: #007aff; }
+    .lang-section { display: none; }
+    .lang-section.active { display: block; }
     h2 { font-size: 18px; font-weight: 600; margin-top: 32px; margin-bottom: 10px; color: #1c1c1e; }
     p, li { font-size: 16px; line-height: 1.65; color: #3a3a3c; }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 6px; }
     a { color: #007aff; text-decoration: none; }
     a:hover { text-decoration: underline; }
     .qa-section { border-top: 1px solid #e5e5ea; margin-top: 12px; padding-top: 20px; }
@@ -27,11 +30,16 @@
   <div class="meta">
     <span class="badge">Version 1.0</span>
     <span class="badge">iOS 17+</span>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="switchLang('ja')">日本語</button>
+      <button class="lang-btn" onclick="switchLang('en')">English</button>
+    </div>
   </div>
 
-  <h2>よくある質問</h2>
-
-    <div class="qa-section">
+  <!-- 日本語 -->
+  <div class="lang-section active" id="lang-ja">
+    <h2>よくある質問</h2>
+      <div class="qa-section">
     <h2>Q. Calu+ Pro を購入したのに広告が消えません</h2>
     <p>「設定」→「購入を復元」をタップしてください。同じ Apple ID でサインインした状態でお試しください。</p>
   </div>
@@ -48,12 +56,54 @@
     <p>設定アプリ → Apple ID → メディアと購入 でサインイン状態を確認してください。解決しない場合は下記メールにご連絡ください。</p>
   </div>
 
+    <div class="contact-box">
+      <strong>お問い合わせ</strong>
+      <p>ご不明な点はお気軽にどうぞ。 <a href="mailto:support@appdevlab.com">support@appdevlab.com</a></p>
+    </div>
+  </div>
 
-  <div class="contact-box">
-    <strong>お問い合わせ</strong>
-    <p>ご不明な点はお気軽にどうぞ。 <a href="mailto:support@appdevlab.com">support@appdevlab.com</a></p>
+  <!-- English -->
+  <div class="lang-section" id="lang-en">
+    <h2>FAQ</h2>
+      <div class="qa-section">
+    <h2>Q. I purchased Calu+ Pro but ads are still showing</h2>
+    <p>Please go to Settings → Restore Purchases and tap it while signed in with the same Apple ID.</p>
+  </div>
+  <div class="qa-section">
+    <h2>Q. Where can I find my calculation history?</h2>
+    <p>Tap the clock icon in the top-right corner of the calculator screen to view your history.</p>
+  </div>
+  <div class="qa-section">
+    <h2>Q. What units does the converter support?</h2>
+    <p>The converter supports Length, Weight, Temperature, Area, Volume, Speed, and more. Select a category from the Unit Converter tab.</p>
+  </div>
+  <div class="qa-section">
+    <h2>Q. I can't restore my purchase</h2>
+    <p>Go to Settings app → Apple ID → Media & Purchases and confirm you are signed in. If the issue persists, please contact us.</p>
+  </div>
+
+    <div class="contact-box">
+      <strong>Contact Us</strong>
+      <p>Feel free to reach out with any questions. <a href="mailto:support@appdevlab.com">support@appdevlab.com</a></p>
+    </div>
   </div>
 
   <footer>© 2026 AppDevLab. All rights reserved.</footer>
+
+  <script>
+    // ブラウザ言語で自動切り替え
+    (function() {
+      var lang = (navigator.language || 'ja').startsWith('ja') ? 'ja' : 'en';
+      switchLang(lang);
+    })();
+    function switchLang(lang) {
+      document.querySelectorAll('.lang-section').forEach(function(el) {
+        el.classList.toggle('active', el.id === 'lang-' + lang);
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.textContent.trim() === (lang === 'ja' ? '日本語' : 'English'));
+      });
+    }
+  </script>
 </body>
 </html>
